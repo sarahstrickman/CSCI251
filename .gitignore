@@ -1,0 +1,9 @@
+*.xml
+.vs
+.vs/*
+.idea
+.idea/*
+bin
+obj
+bin/*
+obj/*
