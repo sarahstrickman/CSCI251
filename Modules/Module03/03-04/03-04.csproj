@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <DebugType>portable</DebugType>
+    <AssemblyName>03-04</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>03-04</PackageId>
+
+  </PropertyGroup>
+
+</Project>
