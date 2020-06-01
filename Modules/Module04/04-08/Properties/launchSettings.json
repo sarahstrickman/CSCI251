@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "04-08": {
+      "commandName": "Project",
+      "commandLineArgs": "huey dewy lewy donald scrooge launchpad beekly"
+    }
+  }
+}

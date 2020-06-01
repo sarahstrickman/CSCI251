@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "04-10": {
+      "commandName": "Project",
+      "commandLineArgs": "yacko wacko"
+    }
+  }
+}
