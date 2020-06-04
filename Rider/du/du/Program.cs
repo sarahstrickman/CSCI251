@@ -4,42 +4,27 @@ using System.Collections.Generic;
 
 namespace du
 {
-
-    class SequentialOperation {
-        public int[] calculateSeq(String dir) {
-            var numFiles = 0;   // the number of files calculated
-            var numDirs = 0;    // the number of directories calculated
-            var byteSize = 0;   // the total size (in bytes)
-
-            // if it's a file
-                // numFiles++
-                // get size of file
-            var numberList = new int[3];
-            return numberList;
-        }
-    }
-
     class Program
     {
-
-        
 
         static void Main(string[] args)
         {
             // check args
-            if (args.Length != 2) {
+            if (args.Length != 2)
+            {
                 Console.WriteLine("Usage: du [-s] [-p] [-b]\n"+
                 "You MUST specify one of the parameters -s, -p, or -b.\n"+
                 "-s\tRun in sequential mode\n"+
-                "-p\tRun in parallel bode (uses all available processors)"+
+                "-p\tRun in parallel bode (uses all available processors)\n"+
                 "-b\tRuns in parallel, followed by sequential mode");
                 Environment.Exit(0);
             }
 
-            if (args[0] == "-p") {
+            if (args[0] == "-p")
+            {
                 var parTime = 0.0;
                 var watch = System.Diagnostics.Stopwatch.StartNew();
-
+        
                 // run project in parallel
                 
                 watch.Stop();
