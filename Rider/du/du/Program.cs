@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * Contains main.
+ *
+ * author :    Sarah Strickman
+ *             sxs4599@rit.edu
+ */
+
+using System;
 using System.Threading;
 using System.Collections.Generic;
 
@@ -6,7 +13,6 @@ namespace du
 {
     class Program
     {
-
         static void Main(string[] args)
         {
             // check args
@@ -32,14 +38,20 @@ namespace du
                 Console.WriteLine("Parallel calculated in: " + parTime + "s");
             }
             if (args[0] == "-s") {
+                Console.WriteLine("Calculating usage data for " + args[1] + "\n");
                 var seqTime = 0.0;
                 var watch = System.Diagnostics.Stopwatch.StartNew();
                 
-                // run project sequentially
-                
+                SequentialOperation s = new SequentialOperation();
+                s.Calculate(args[1]);
+
                 watch.Stop();
+                seqTime = watch.Elapsed.TotalMilliseconds / 1000.0;
                 seqTime = Math.Round(seqTime, 7);
                 Console.WriteLine("Sequential calculated in: " + seqTime + "s");
+                Console.WriteLine("Number of files:\t" + s.NumFiles);
+                Console.WriteLine("Number of directories:\t" + s.NumDirs);
+                Console.WriteLine("Total size in bytes:\t" + s.NumBytes);
             }
             if (args[0] == "-b") {
                 var seqTime = 0.0;  // length of time for sequential execution
