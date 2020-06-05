@@ -39,9 +39,9 @@ namespace du
                 parTime = Math.Round(parTime, 7);
                 Console.WriteLine("Parallel calculated in: " + parTime + "s");
                 
-                Console.WriteLine("Number of files:\t" + p.NumFiles);
-                Console.WriteLine("Number of directories:\t" + p.NumDirs);
-                Console.WriteLine("Total size in bytes:\t" + p.NumBytes);
+                Console.WriteLine("Number of files:\t" + string.Format("{0:#,##0}", p.NumFiles));
+                Console.WriteLine("Number of directories:\t" + string.Format("{0:#,##0}", p.NumDirs));
+                Console.WriteLine("Total size in bytes:\t" + string.Format("{0:#,##0}", p.NumBytes));
             }
             if (args[0] == "-s") {
                 Console.WriteLine("Calculating usage data for " + args[1] + "\n");
@@ -56,9 +56,9 @@ namespace du
                 seqTime = Math.Round(seqTime, 7);
                 Console.WriteLine("Sequential calculated in: " + seqTime + "s");
                 
-                Console.WriteLine("Number of files:\t" + s.NumFiles);
-                Console.WriteLine("Number of directories:\t" + s.NumDirs);
-                Console.WriteLine("Total size in bytes:\t" + s.NumBytes);
+                Console.WriteLine("Number of files:\t" + string.Format("{0:#,##0}", s.NumFiles));
+                Console.WriteLine("Number of directories:\t" + string.Format("{0:#,##0}", s.NumDirs));
+                Console.WriteLine("Total size in bytes:\t" + string.Format("{0:#,##0}", s.NumBytes));
             }
             if (args[0] == "-b") {
                 var seqTime = 0.0;  // length of time for sequential execution
@@ -88,14 +88,14 @@ namespace du
                 Console.WriteLine("");
                 
                 Console.WriteLine("Parallel Results:");
-                Console.WriteLine("Number of files:\t" + p.NumFiles);
-                Console.WriteLine("Number of directories:\t" + p.NumDirs);
-                Console.WriteLine("Total size in bytes:\t" + p.NumBytes);
+                Console.WriteLine("Number of files:\t" + string.Format("{0:#,##0}", p.NumFiles));
+                Console.WriteLine("Number of directories:\t" + string.Format("{0:#,##0}", p.NumDirs));
+                Console.WriteLine("Total size in bytes:\t" + string.Format("{0:#,##0}", p.NumBytes));
                 
                 Console.WriteLine("\nSequential Results");
-                Console.WriteLine("Number of files:\t" + s.NumFiles);
-                Console.WriteLine("Number of directories:\t" + s.NumDirs);
-                Console.WriteLine("Total size in bytes:\t" + s.NumBytes);
+                Console.WriteLine("Number of files:\t" + string.Format("{0:#,##0}", s.NumFiles));
+                Console.WriteLine("Number of directories:\t" + string.Format("{0:#,##0}", s.NumDirs));
+                Console.WriteLine("Total size in bytes:\t" + string.Format("{0:#,##0}", s.NumBytes));
             }
         }
     }

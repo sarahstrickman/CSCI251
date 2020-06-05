@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Contains the code for the IOperation interface, as well as code for
  * sequential and parallel operations.
  *
@@ -10,7 +10,8 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace du {
+namespace du
+{
     
     /**
      * Interface for operations.
@@ -73,10 +74,12 @@ namespace du {
         }
     }
 
+    /**
+     * This class will calculate usage data by using the Parallel library 
+    */
     class ParallelOperation : IOperation
     {
-        private static object QueueLock = new Object();
-        private static object NumLock = new Object();
+        private static object NumLock = new Object();   // lock for accumulating numbers
 
         public long NumDirs {get; private set;}  // number of folders counted
         public long NumFiles {get; private set;} // number of files counted
@@ -131,10 +134,5 @@ namespace du {
                 // squash
             }
         }
-    }
-
-    public class ParallelThread
-    {
-        
     }
 }
