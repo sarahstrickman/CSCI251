@@ -31,24 +31,31 @@ namespace du
                 var parTime = 0.0;
                 var watch = System.Diagnostics.Stopwatch.StartNew();
         
-                // run project in parallel
+                var p = new ParallelOperation();
+                p.Calculate(args[1]);
                 
                 watch.Stop();
+                parTime = watch.Elapsed.TotalMilliseconds / 1000.0;
                 parTime = Math.Round(parTime, 7);
                 Console.WriteLine("Parallel calculated in: " + parTime + "s");
+                
+                Console.WriteLine("Number of files:\t" + p.NumFiles);
+                Console.WriteLine("Number of directories:\t" + p.NumDirs);
+                Console.WriteLine("Total size in bytes:\t" + p.NumBytes);
             }
             if (args[0] == "-s") {
                 Console.WriteLine("Calculating usage data for " + args[1] + "\n");
                 var seqTime = 0.0;
                 var watch = System.Diagnostics.Stopwatch.StartNew();
                 
-                SequentialOperation s = new SequentialOperation();
+                var s = new SequentialOperation();
                 s.Calculate(args[1]);
 
                 watch.Stop();
                 seqTime = watch.Elapsed.TotalMilliseconds / 1000.0;
                 seqTime = Math.Round(seqTime, 7);
                 Console.WriteLine("Sequential calculated in: " + seqTime + "s");
+                
                 Console.WriteLine("Number of files:\t" + s.NumFiles);
                 Console.WriteLine("Number of directories:\t" + s.NumDirs);
                 Console.WriteLine("Total size in bytes:\t" + s.NumBytes);
@@ -58,19 +65,17 @@ namespace du
                 var parTime = 0.0;  // length of time for parallel execution
                 var watch = System.Diagnostics.Stopwatch.StartNew();
 
-                // run project in parallel
-                Thread.Sleep(1234);
+                var p = new ParallelOperation();
+                p.Calculate(args[1]);
                 
                 watch.Stop();
                 parTime = watch.Elapsed.TotalMilliseconds / 1000.0;
                 parTime = Math.Round(parTime, 7);
 
-
-
                 watch.Restart();
 
-                // run project sequentially
-                Thread.Sleep(1432);
+                var s = new SequentialOperation();
+                s.Calculate(args[1]);
 
                 watch.Stop();
                 seqTime = watch.Elapsed.TotalMilliseconds / 1000.0;
@@ -80,6 +85,17 @@ namespace du
 
                 Console.WriteLine("Parallel calculated in: " + parTime + "s");
                 Console.WriteLine("Sequential calculated in: " + seqTime + "s");
+                Console.WriteLine("");
+                
+                Console.WriteLine("Parallel Results:");
+                Console.WriteLine("Number of files:\t" + p.NumFiles);
+                Console.WriteLine("Number of directories:\t" + p.NumDirs);
+                Console.WriteLine("Total size in bytes:\t" + p.NumBytes);
+                
+                Console.WriteLine("\nSequential Results");
+                Console.WriteLine("Number of files:\t" + s.NumFiles);
+                Console.WriteLine("Number of directories:\t" + s.NumDirs);
+                Console.WriteLine("Total size in bytes:\t" + s.NumBytes);
             }
         }
     }
