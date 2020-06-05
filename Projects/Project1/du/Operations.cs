@@ -65,7 +65,11 @@ namespace du
             catch (DirectoryNotFoundException)
             {
                 Console.WriteLine("Please specify a valid directory.");
-                return;
+                Environment.Exit(0);
+            }
+            catch (IOException) {
+                Console.WriteLine("Please specify a valid directory.");
+                Environment.Exit(0);
             }
             catch (UnauthorizedAccessException)
             {
@@ -127,10 +131,11 @@ namespace du
             catch (DirectoryNotFoundException)
             {
                 Console.WriteLine("Please specify a valid directory.");
-                return;
+                Environment.Exit(0);
             }
             catch (IOException) {
                 Console.WriteLine("Please specify a valid directory.");
+                Environment.Exit(0);
             }
             catch (UnauthorizedAccessException)
             {
