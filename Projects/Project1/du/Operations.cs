@@ -64,7 +64,7 @@ namespace du
             }
             catch (DirectoryNotFoundException)
             {
-                Console.WriteLine("Invalid directory specified.");
+                Console.WriteLine("Please specify a valid directory.");
                 return;
             }
             catch (UnauthorizedAccessException)
@@ -126,8 +126,11 @@ namespace du
             }
             catch (DirectoryNotFoundException)
             {
-                Console.WriteLine("Invalid directory specified.");
+                Console.WriteLine("Please specify a valid directory.");
                 return;
+            }
+            catch (IOException) {
+                Console.WriteLine("Please specify a valid directory.");
             }
             catch (UnauthorizedAccessException)
             {
