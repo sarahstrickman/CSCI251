@@ -101,6 +101,14 @@ namespace du
                         string.Format("{0:#,##0}", s.NumFiles) + " files, " + 
                         string.Format("{0:#,##0}", s.NumBytes) + " bytes\n");
             }
+
+            else {
+                Console.WriteLine("Usage: du [-s] [-p] [-b]\n"+
+                "You MUST specify one of the parameters -s, -p, or -b.\n"+
+                "-s\tRun in sequential mode\n"+
+                "-p\tRun in parallel bode (uses all available processors)\n"+
+                "-b\tRuns in parallel, followed by sequential mode");
+            }
         }
     }
 }
