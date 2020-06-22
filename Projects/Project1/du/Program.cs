@@ -6,6 +6,7 @@
  */
 
 using System;
+using System.IO;
 using System.Threading;
 using System.Collections.Generic;
 using du;
@@ -100,6 +101,8 @@ namespace du
                 Console.WriteLine(string.Format("{0:#,##0}", s.NumDirs) + " folders, " + 
                         string.Format("{0:#,##0}", s.NumFiles) + " files, " + 
                         string.Format("{0:#,##0}", s.NumBytes) + " bytes\n");
+
+                Console.WriteLine("Using SO function: " + string.Format("{0:#,##0}", s.DirSize(new DirectoryInfo(args[1]))) + " bytes");
             }
 
             else {

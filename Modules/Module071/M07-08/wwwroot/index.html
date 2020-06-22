@@ -1,0 +1,41 @@
+<script language="javascript" type="text/javascript">
+    var socket;
+    var uri = "ws://127.0.0.1:5000/ws";
+    var output;
+    var text = "098f6bcd4621d373cade4e832627b4f6";
+
+    function write(s) {
+        var p = document.createElement("p");
+        output.innerHTML = s;
+        //output.appendChild(p);
+    }
+
+    function doConnect() {
+        socket = new WebSocket(uri);
+        socket.onopen = function(e) { write("opened " + uri); };
+        socket.onclose = function (e) { write("closed"); };
+        socket.onmessage = function(e) { write("Received: " + e.data); };
+        socket.onerror = function (e) { write("Error: " + e.data); };
+    }
+
+    function doSend() {
+        var md5 = document.getElementById("md5").value;
+        write("Sending: " + md5);
+        socket.send(md5);
+    }
+
+    function onInit() {
+        output = document.getElementById("output");
+        doConnect();
+    }
+
+    function getTime() {
+        doSend();
+    }
+
+    window.onload = onInit;
+</script>
+
+<span>Enter md5 to decode: </span><input type="text" id="md5"/>
+<button onclick="doSend()">Find</button>
+<div id="output"></div>
