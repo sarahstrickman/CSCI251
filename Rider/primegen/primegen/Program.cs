@@ -17,6 +17,9 @@ namespace primegen
 {
     class Program
     {
+        private static object CalculateLock = new object();
+        private static BigInteger NumCalculated = new BigInteger(1);
+        
         static void Main(string[] args)
         {
 
@@ -51,52 +54,60 @@ namespace primegen
             }
 
             // get number of bits
-            var numBits = new BigInteger(0);
-            var bigIntEight = new BigInteger(8);
+            Int32 numBits = 0;
+            Int32 bigIntEight = 8;
             try
             {
-                numBits = BigInteger.Parse(args[0]);
-                
+                numBits = Int32.Parse(args[0]);
+
                 // must be divisible by 8
-                if (BigInteger.Remainder(numBits, bigIntEight) != BigInteger.Zero)
+                if ((numBits % bigIntEight) != 0)
                 {
                     Console.WriteLine("Number of bits must be a multiple of 8.");
                     Environment.Exit(0);
                 }
                 
                 // must be greater than 32 bits (4 bytes)
-                var minValue = new BigInteger(32);
-                if (BigInteger.Compare(numBits, minValue) <= 0)
+                Int32 minValue = 32;
+                if (numBits <= minValue)
                 {
                     Console.WriteLine("Number of bits should be greater than 32.");
                 }
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
                 Console.WriteLine("Please input a number input for bits.");
                 Environment.Exit(0);
             }
             
-            var numBytes = BigInteger.Divide(numBits, new BigInteger(8));
+            Int32 numBytes = numBits / bigIntEight;
+            var primeNumbers = new BigInteger[count];
             
+            var numCores = Environment.ProcessorCount;    // used for threading
+            Console.Write("BitLength: " + numBits + " bits");
             
-            var PrimeNumbers = new BigInteger[count];
-            
-            var CalculationSeconds = 0.0;
             var watch = System.Diagnostics.Stopwatch.StartNew();
         
-            System.Threading.Thread.Sleep(2);
-            
-            // parallel.ForEach(
-                //
-            // );
-                
+            // calculate numbers in parallel
+            Parallel.ForEach(primeNumbers, number =>
+                {
+                    var oper = new Operation();
+                    number = oper.Calculate(numBytes, numCores);
+                    lock (CalculateLock)
+                    {
+                        Console.WriteLine("\n" + Program.NumCalculated + 
+                                          ": " + number.ToString());
+                        NumCalculated += 1;
+                    }
+                }
+            );
+
             watch.Stop();
-            CalculationSeconds = watch.Elapsed.Milliseconds / 1000.0;
-            CalculationSeconds = Math.Round(CalculationSeconds, 7);
-            
-            Console.WriteLine("Time to Generate: " + watch.Elapsed.Hours + 
-                              ":" + watch.Elapsed.Minutes + ":" + CalculationSeconds);
+
+            var elapsedtime = String.Format("{0:00}:{1:00}:{2:00}.{3:0000000}",
+            watch.Elapsed.Hours, watch.Elapsed.Minutes, watch.Elapsed.Seconds,
+            watch.Elapsed.Milliseconds);
+            Console.WriteLine("Time to Generate: " + elapsedtime);
         }
     }
 }

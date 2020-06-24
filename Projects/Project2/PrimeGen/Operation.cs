@@ -1,4 +1,4 @@
-﻿/*
+/*
  * contains classes that perform operations to calculate Prime numbers
  *
  * author : Sarah Strickman
