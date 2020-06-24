@@ -1,7 +1,17 @@
-﻿using System;
+﻿/*
+ * Main.  This is where the code is run from.
+ * 
+ * author : Sarah Strickman
+ *          sxs4599
+ */
+
+
+
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Numerics;
+using System.Threading.Tasks;
 
 namespace primegen
 {
@@ -28,6 +38,10 @@ namespace primegen
                 if (Int32.TryParse(args[1], out count))
                 {
                     count = Int32.Parse(args[1]);
+                    if (count < 1)
+                    {
+                        Console.WriteLine("Count should be greater than 1.");
+                    }
                 }
                 else
                 {
@@ -65,7 +79,24 @@ namespace primegen
             
             var numBytes = BigInteger.Divide(numBits, new BigInteger(8));
             
-            //TODO : do things
+            
+            var PrimeNumbers = new BigInteger[count];
+            
+            var CalculationSeconds = 0.0;
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+        
+            System.Threading.Thread.Sleep(2);
+            
+            // parallel.ForEach(
+                //
+            // );
+                
+            watch.Stop();
+            CalculationSeconds = watch.Elapsed.Milliseconds / 1000.0;
+            CalculationSeconds = Math.Round(CalculationSeconds, 7);
+            
+            Console.WriteLine("Time to Generate: " + watch.Elapsed.Hours + 
+                              ":" + watch.Elapsed.Minutes + ":" + CalculationSeconds);
         }
     }
 }
