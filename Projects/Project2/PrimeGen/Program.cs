@@ -17,8 +17,8 @@ namespace primegen
 {
     class Program
     {
-        private static object CalculateLock = new object();
-        private static BigInteger NumCalculated = new BigInteger(1);
+        internal static object CalculateLock = new object();
+        internal static Int32 NumCalculated = 1;
         
         static void Main(string[] args)
         {
@@ -87,20 +87,26 @@ namespace primegen
             Console.Write("BitLength: " + numBits + " bits");
             
             var watch = System.Diagnostics.Stopwatch.StartNew();
-        
-            // calculate numbers in parallel
-            Parallel.ForEach(primeNumbers, number =>
-                {
-                    var oper = new Operation();
-                    number = oper.Calculate(numBytes, numCores);
-                    lock (CalculateLock)
-                    {
-                        Console.WriteLine("\n" + Program.NumCalculated + 
-                                          ": " + number.ToString());
-                        NumCalculated += 1;
-                    }
-                }
-            );
+
+            
+            Parallel.For(0, (numCores * numBytes * count), generate =>
+            {
+                var oper = new Operation();
+                oper.CalculateAndPrint(numBytes, count);
+            });
+            
+            // Parallel.ForEach(primeNumbers, number =>
+            //     {
+            //         var oper = new Operation();
+            //         number = oper.Calculate(numBytes, numCores);
+            //         lock (CalculateLock)
+            //         {
+            //             Console.WriteLine("\n" + Program.NumCalculated + 
+            //                               ": " + number.ToString());
+            //             NumCalculated += 1;
+            //         }
+            //     }
+            // );
 
             watch.Stop();
 

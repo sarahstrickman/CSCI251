@@ -25,7 +25,7 @@ namespace primegen
          *
          * return a prime BigInteger.
          */
-        public BigInteger Calculate(Int32 numBytes, int numCores)
+        public BigInteger Calculate(Int32 numBytes, int count)
         {
             var rng = new RNGCryptoServiceProvider();
             var IsPrimeGenerated = false;
@@ -42,26 +42,41 @@ namespace primegen
                 IsPrimeGenerated = ExtensionMethods.IsProbablyPrime(GeneratedNumber);
             }
             return GeneratedNumber;
+        }
+
+        
+        /*
+         * void function that finds a prime number and prints it.
+         *
+         * Does not return the prime number!
+         */
+        public void CalculateAndPrint(Int32 numBytes, Int32 count)
+        {
+            var rng = new RNGCryptoServiceProvider();
+            BigInteger generatedNumber = new BigInteger();
             
-            // var numbers = new BigInteger[numCores];
-            // var primeBigInt = new BigInteger();
-            // while (!IsPrimeGenerated)
-            // {
-            //     Parallel.ForEach(numbers, number =>
-            //     {
-            //         var byteArray = new byte[numBytes];
-            //         rng.GetBytes(byteArray);
-            //         number = new BigInteger(byteArray);
-            //         // check if the generated number is prime
-            //         lock (IsPrimeGeneratedLock)
-            //         {
-            //             IsPrimeGenerated = ExtensionMethods.IsProbablyPrime(number);
-            //             primeBigInt = number;
-            //         }
-            //     });
-            // }
-            // return primeBigInt;
-            
+            while (Program.NumCalculated <= count)
+            {
+                var byteArray = new byte[numBytes];
+                rng.GetBytes(byteArray);
+                
+                generatedNumber = new BigInteger(byteArray);
+                
+                // check if the generated number is prime
+                if (ExtensionMethods.IsProbablyPrime(generatedNumber) 
+                    && Program.NumCalculated <= count)
+                {
+                    lock (Program.CalculateLock)
+                    {
+                        if (Program.NumCalculated <= count)
+                        {
+                            Console.WriteLine("\n" + Program.NumCalculated +
+                                              ": " + generatedNumber);
+                            Program.NumCalculated += 1;
+                        }
+                    }
+                }
+            }
         }
     }
 
